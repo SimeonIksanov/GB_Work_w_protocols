@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using SoapService.Services;
+using SoapService.Services.Impl;
 
 namespace SoapService
 {
@@ -16,11 +18,31 @@ namespace SoapService
     // [System.Web.Script.Services.ScriptService]
     public class LibraryWebService : System.Web.Services.WebService
     {
+        private ILibraryRepository _libraryRepository;
+
+        public LibraryWebService()
+        {
+            _libraryRepository = new LibraryRepository(new LibraryDatabaseContext());
+        }
 
         [WebMethod]
-        public string HelloWorld()
+        public Book[] GetBooksByTitle(string title)
         {
-            return "Hello World";
+            return _libraryRepository.GetByTitle(title).ToArray();
         }
+
+        [WebMethod]
+        public Book[] GetBooksByAuthor(string author)
+        {
+            return _libraryRepository.GetByAuthor(author).ToArray();
+        }
+
+        [WebMethod]
+        public Book[] GetBooksByCategory(string category)
+        {
+            return _libraryRepository.GetByCategory(category).ToArray();
+        }
+
+
     }
 }
