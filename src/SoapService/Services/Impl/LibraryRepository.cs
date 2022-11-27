@@ -16,26 +16,32 @@ namespace SoapService.Services.Impl
 
         public IList<Book> GetByAuthor(string author)
         {
-            return _context
-                .Books
-                .Where(book => book.Authors.Any(a => a.Name.ToLower().Contains(author.ToLower())))
-                .ToList();
+            return Fetch(book => book.Authors.Any(a => a.Name.ToLower().Contains(author.ToLower())));
         }
 
         public IList<Book> GetByCategory(string category)
         {
-            return _context
-                .Books
-                .Where(book => book.Category.ToLower().Contains(category.ToLower()))
-                .ToList();
+            return Fetch(book => book.Category.ToLower().Contains(category.ToLower()));
         }
 
         public IList<Book> GetByTitle(string title)
         {
-            return _context
-                .Books
-                .Where(book => book.Title.ToLower().Contains(title.ToLower()))
-                .ToList();
+            return Fetch(book => book.Title.ToLower().Contains(title.ToLower()));
+        }
+
+        private IList<Book> Fetch(Func<Book, bool> query)
+        {
+            try
+            {
+                return _context
+                    .Books
+                    .Where(book => query(book))
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                return new List<Book>();
+            }
         }
     }
 }
