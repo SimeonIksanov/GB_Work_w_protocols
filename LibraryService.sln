@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoapService", "src\SoapServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoapService.Tests", "test\SoapService.Tests\SoapService.Tests.csproj", "{4799C67A-A22C-4634-8CBB-F79E7910C0C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryService.Web", "src\LibraryService.Web\LibraryService.Web.csproj", "{D8E83266-9A4E-4931-93F7-398BFA50F3C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4799C67A-A22C-4634-8CBB-F79E7910C0C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4799C67A-A22C-4634-8CBB-F79E7910C0C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4799C67A-A22C-4634-8CBB-F79E7910C0C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8E83266-9A4E-4931-93F7-398BFA50F3C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8E83266-9A4E-4931-93F7-398BFA50F3C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8E83266-9A4E-4931-93F7-398BFA50F3C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8E83266-9A4E-4931-93F7-398BFA50F3C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
