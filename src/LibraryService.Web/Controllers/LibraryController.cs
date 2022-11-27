@@ -13,7 +13,7 @@ public class LibraryController : Controller
         _logger = logger;
     }
 
-    public IActionResult IndexAsync(SearchType searchType, string searchString)
+    public async Task<IActionResult> IndexAsync(SearchType searchType, string searchString)
     {
         LibraryWebServiceSoapClient client =
             new LibraryWebServiceSoapClient(LibraryWebServiceSoapClient.EndpointConfiguration.LibraryWebServiceSoap12);
@@ -25,21 +25,22 @@ public class LibraryController : Controller
                 switch (searchType)
                 {
                     case SearchType.Title:
-                        var b = client.GetBooksByTitle(searchString);
                         return View(new BookCategoryViewModel
                         {
-                            //Books = await client.GetBooksByTitleAsync(searchString)
-                            Books = b
+                            Books = (await client.GetBooksByTitleAsync(searchString)).Body.GetBooksByTitleResult
+                            //Books = client.GetBooksByTitle(searchString);
                         });
                     case SearchType.Author:
                         return View(new BookCategoryViewModel
                         {
-                            Books = client.GetBooksByAuthor(searchString)
+                            Books = (await client.GetBooksByAuthorAsync(searchString)).Body.GetBooksByAuthorResult
+                            //Books = client.GetBooksByAuthor(searchString)
                         });
                     case SearchType.Category:
                         return View(new BookCategoryViewModel
                         {
-                            Books = client.GetBooksByCategory(searchString)
+                            Books = (await client.GetBooksByCategoryAsync(searchString)).Body.GetBooksByCategoryResult
+                            //Books = client.GetBooksByCategory(searchString)
                         });
                 }
 
