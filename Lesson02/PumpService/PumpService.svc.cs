@@ -36,7 +36,9 @@ namespace PumpService
                     return OperationContext.Current.GetCallbackChannel<IPumpServiceCallback>();
                 }
                 else
-                { return null; }
+                {
+                    return null;
+                }
             }
         }
     }

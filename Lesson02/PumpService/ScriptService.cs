@@ -31,22 +31,8 @@ namespace PumpService
         {
             try
             {
-                CompilerParameters compilerParameters = new CompilerParameters();
-                compilerParameters.GenerateInMemory = true;
-                compilerParameters.ReferencedAssemblies.AddRange(new string[]
-                {
-                "System.dll",
-                "System.Core.dll",
-                "System.Data.dll",
-                "Microsoft.CSharp.dll"
-                });
-                compilerParameters.ReferencedAssemblies.Add(Assembly.GetExecutingAssembly().Location);
-
-                string scriptContent;
-                using (StreamReader streamReader = new StreamReader(_serviceSettings.FileName))
-                {
-                    scriptContent = streamReader.ReadToEnd();
-                }
+                var compilerParameters = CreateCompilerParameters();
+                var scriptContent = ReadScriptContent();
 
                 CSharpCodeProvider codeProvider = new CSharpCodeProvider();
                 _compileResult = codeProvider
@@ -65,6 +51,33 @@ namespace PumpService
 
                 return false;
             }
+        }
+
+        private string ReadScriptContent()
+        {
+            string scriptContent;
+            using (StreamReader streamReader = new StreamReader(_serviceSettings.FileName))
+            {
+                scriptContent = streamReader.ReadToEnd();
+            }
+
+            return scriptContent;
+        }
+
+        private static CompilerParameters CreateCompilerParameters()
+        {
+            CompilerParameters compilerParameters = new CompilerParameters();
+            compilerParameters.GenerateInMemory = true;
+            compilerParameters.ReferencedAssemblies.AddRange(new string[]
+            {
+                "System.dll",
+                "System.Core.dll",
+                "System.Data.dll",
+                "Microsoft.CSharp.dll",
+                Assembly.GetExecutingAssembly().Location
+            });
+
+            return compilerParameters;
         }
 
         public void Run(int count)
