@@ -14,17 +14,17 @@ public class Program
 
         #region Configure Kestrel
 
-        builder.WebHost.ConfigureKestrel(options =>
-        {
-            options.Listen(IPAddress.Any, 5001, listenOptions =>
-            {
-                listenOptions.Protocols = HttpProtocols.Http2;
-            });
-            options.Listen(IPAddress.Any, 5101, listenOptions =>
-            {
-                listenOptions.Protocols = HttpProtocols.Http1;
-            });
-        });
+        //builder.WebHost.ConfigureKestrel(options =>
+        //{
+        //    options.Listen(IPAddress.Any, 5001, listenOptions =>
+        //    {
+        //        listenOptions.Protocols = HttpProtocols.Http2;
+        //    });
+        //    options.Listen(IPAddress.Any, 5101, listenOptions =>
+        //    {
+        //        listenOptions.Protocols = HttpProtocols.Http1;
+        //    });
+        //});
 
         #endregion
 
