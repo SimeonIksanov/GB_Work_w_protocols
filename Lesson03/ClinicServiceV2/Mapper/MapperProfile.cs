@@ -13,5 +13,7 @@ public class MapperProfile : Profile
             .ReverseMap();
         CreateMap<CreateClientRequest, Client>();
         CreateMap<UpdateClientRequest, Client>();
+
+        CreateMap<RegisterUserRequest, User>();
     }
 }

@@ -2,11 +2,13 @@
 using ClinicService.Data;
 using ClinicServiceNamespace;
 using Grpc.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using static ClinicServiceNamespace.ClinicService;
 
 namespace ClinicServiceV2.Services;
 
+[Authorize]
 public class ClinicService : ClinicServiceBase
 {
     private readonly ClinicServiceDbContext _context;

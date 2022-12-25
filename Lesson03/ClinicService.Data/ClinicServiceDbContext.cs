@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClinicService.Data;
-public class ClinicServiceDbContext : DbContext
+public class ClinicServiceDbContext : IdentityDbContext<User>
 {
     public ClinicServiceDbContext(DbContextOptions options) : base(options)
     {

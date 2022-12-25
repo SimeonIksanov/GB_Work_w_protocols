@@ -7,10 +7,11 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        AppContext.SetSwitch(
-            "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+        //AppContext.SetSwitch(
+        //    "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
-        using var channel = GrpcChannel.ForAddress("http://localhost:5001");
+        using var channel = GrpcChannel.ForAddress("https://localhost:5001");
+        
         var client = new ClinicService.ClinicServiceClient(channel);
 
         int count = 10;
