@@ -1,5 +1,7 @@
 ﻿using Grpc.Net.Client;
 using ClinicServiceNamespace;
+using static ClinicServiceNamespace.AuthService;
+using Grpc.Core;
 
 namespace ClinicClient;
 
@@ -11,9 +13,37 @@ internal class Program
         //    "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
         using var channel = GrpcChannel.ForAddress("https://localhost:5001");
-        
-        var client = new ClinicService.ClinicServiceClient(channel);
+        AuthServiceClient authServiceClient = new AuthServiceClient(channel);
 
+        var response = authServiceClient.Authenticate(
+            request: new AuthenticateRequest { Username = "ext3", Password = "P@ssw0rd" });
+
+        if (response == null || response.ErrCode != 0)
+        {
+            Console.WriteLine(response == null ? "Auth Error" : response.ErrMessage);
+            return;
+        }
+        var token = response.Token;
+        Console.WriteLine($"Successfull Authentication, Token: {token}");
+
+        var callCredentials = CallCredentials.FromInterceptor((c, m) =>
+        {
+            m.Add("Authorization", $"Bearer {token}");
+            return Task.CompletedTask;
+        });
+
+        using var protectedChannel = GrpcChannel.ForAddress(
+            address: "https://localhost:5001",
+            channelOptions: new GrpcChannelOptions
+            {
+                Credentials = ChannelCredentials.Create(new SslCredentials(), callCredentials)
+            });
+
+
+
+
+        var client = new ClinicService.ClinicServiceClient(protectedChannel);
+        
         int count = 10;
         for (int i = 0; i < count; i++)
         {
