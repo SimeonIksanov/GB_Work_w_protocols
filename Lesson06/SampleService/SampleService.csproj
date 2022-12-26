@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="NSwag.ApiDescription.Client" Version="13.18.2">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="7.0.1">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.1" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="5.2.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="NSwag.ApiDescription.Client" />
+		<None Remove="Microsoft.Extensions.ApiDescription.Client" />
+		<None Remove="Newtonsoft.Json" />
+		<None Remove="OpenAPIs\" />
+		<None Remove="Extensions\" />
+		<None Remove="Microsoft.Extensions.Http.Polly" />
+		<None Remove="Services\" />
+		<None Remove="Services\Client\" />
+		<None Remove="Services\Client\Impl\" />
+		<None Remove="NLog.Web.AspNetCore" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="OpenAPIs\" />
+		<Folder Include="Extensions\" />
+		<Folder Include="Services\" />
+		<Folder Include="Services\Client\" />
+		<Folder Include="Services\Client\Impl\" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Remove="OpenAPIs\swagger.json" />
+	</ItemGroup>
+	<ItemGroup>
+		<OpenApiReference Include="OpenAPIs\swagger.json" Namespace="RootServiceNamespace" ClassName="RootServiceClient" OutputPath="RootServiceClient.cs">
+		</OpenApiReference>
+	</ItemGroup>
+</Project>
