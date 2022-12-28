@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option csharp_namespace = "ClinicServiceNamespace";
+
+import "google/protobuf/wrappers.proto";
+import "google/api/annotations.proto";
+
+// Сервис авторизации
+service AuthService
+{
+    // Зарегистрировать пользователя
+    rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {
+        option (google.api.http) = {
+            post: "/api/register"
+            body: "*"
+        };
+    }
+
+    rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse) {
+         option (google.api.http) = {
+            post: "/api/login"
+            body: "*"
+        };
+    }
+}
+
+message RegisterUserRequest {
+    // Имя
+    string FirstName = 1;
+    // Фамилия
+    string LastName = 2;
+    // Логин
+    string UserName = 3;
+    // Email
+    string Email = 4;
+    // Пароль
+    string Password = 5;
+}
+message RegisterUserResponse {
+    int32 errCode = 1;
+    string errMessage = 2;
+}
+
+message AuthenticateRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message AuthenticateResponse {
+    int32 errCode = 1;
+    string errMessage = 2;
+    string Token = 3;
+}

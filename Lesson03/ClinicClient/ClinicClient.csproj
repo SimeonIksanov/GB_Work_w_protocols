@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,14 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Proto\" />
+    <Protobuf Include="..\ClinicServiceV2\Protos\auth.proto" GrpcServices="Client" ProtoRoot="..\ClinicServiceV2">
+      <Link>Proto\auth.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\ClinicServiceV2\Protos\clinic.proto" GrpcServices="Client" ProtoRoot="..\ClinicServiceV2">
+      <Link>Proto\clinic.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\ClinicService.Api\Proto\clinic.proto" Link="Proto\clinic.proto" GrpcServices="Client" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Google.Api.CommonProtos" Version="2.7.0" />
     <PackageReference Include="Google.Protobuf" Version="3.21.10" />
     <PackageReference Include="Grpc.Net.Client" Version="2.50.0" />
     <PackageReference Include="Grpc.Tools" Version="2.50.0">
